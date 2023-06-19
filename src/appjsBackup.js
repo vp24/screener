@@ -3,8 +3,6 @@ import axios from "axios";
 import "./index.css";
 import "./App.css";
 import "chart.js/auto";
-import EpsTable from "./EpsTable";
-import GrowthEstimates from "./GrowthEstimates";
 import { Bar, Line } from "react-chartjs-2";
 
 const removePhrases = (text) => {
@@ -47,8 +45,8 @@ const App = () => {
   const [chartData, setChartData] = useState({});
   const [lineChartData, setLineChartData] = useState({});
   const [lineChartDataEPS, setLineChartDataEPS] = useState({});
-  const [yahooResult, setYahooResult] = useState(null);
   //const [stockCode, setStockCode] = useState('');
+
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -63,8 +61,8 @@ const App = () => {
       });
 
       setResult(response.data.result);
-      setYahooResult(response.data.yahooResult);
       //setStockCode(result.firstLink.split('-').pop().replace('/', ''));
+
 
       // Modify and set copied data
       const modifiedCopiedData = [
@@ -185,6 +183,7 @@ const App = () => {
           <div className="center">
             <h2>Link to site:</h2>
             <p>{result.firstLink}</p>
+            <p>{result.firstLink.split('-').pop().replace('/', '')}</p>
           </div>
 
           <section className="estimated-financial-data">
@@ -403,18 +402,12 @@ const App = () => {
           <div className="chart">
             <Line data={lineChartData.data} options={lineChartData.options} />
           </div>
-          {/* <div className="chart">
+          <div className="chart">
             <Line
               data={lineChartDataEPS.data}
               options={lineChartDataEPS.options}
             />
-          </div> */}
-        </div>
-      )}
-      {query && result && (
-        <div>
-          <EpsTable epsTrend={yahooResult.epsTrend} />
-          <GrowthEstimates growthEstimates={yahooResult.growthEstimates} />
+          </div>
         </div>
       )}
     </div>
