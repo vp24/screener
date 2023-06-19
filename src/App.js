@@ -58,7 +58,7 @@ const App = () => {
       setIsLoading(true);
 
       // Make API request
-      const response = await axios.post("http://localhost:3001/search", {
+      const response = await axios.post("https://screener-api.onrender.com/search", {
         query,
       });
 
