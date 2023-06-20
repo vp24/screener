@@ -61,6 +61,7 @@
 //       const response = await axios.post("http://localhost:3001/search", {
 //         query,
 //       });
+//       //"https://screener-api.onrender.com/search"
 
 //       setResult(response.data.result);
 //       setYahooResult(response.data.yahooResult);
@@ -83,6 +84,8 @@
 //           .slice(1)
 //           .map((cellData) => cellData.replace(/\s/g, "")),
 //       ];
+
+      
 
 //       setCopiedData(modifiedCopiedData);
 
@@ -190,6 +193,7 @@
 //           <section className="estimated-financial-data">
 //             <h3>Estimated financial data</h3>
 //             <h2>{result.secondLinkData[12][0]}</h2>
+//             <p>{result.firstLinkData}</p>
 //             <table className="connected-table">
 //               <tbody>
 //                 <tr>

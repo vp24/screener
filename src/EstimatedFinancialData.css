@@ -1,0 +1,39 @@
+.table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .finTable {
+    /* Add any additional styling for the finTable if needed */
+  }
+
+  
+  .column1 {
+    text-align: left;
+  }
+  .column2 {
+    text-align: right;
+  }
+  .column3 {
+    text-align: left;
+  }
+  .column4 {
+    text-align: right;
+  }
+  .column5 {
+    text-align: left;
+  }
+  .column6 {
+    text-align: right;
+  }
+
+  .column {
+    padding-right: 20px; /* Adjust the value as needed */
+  }
+  
+  .column:last-child {
+    padding-right: 0; /* Remove the right padding for the last column */
+  }
+  

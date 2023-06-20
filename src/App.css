@@ -3,6 +3,16 @@
   text-align: center;
 }
 
+.label {
+  text-align: left;
+}
+
+.data {
+  text-align: right;
+}
+
+
+
 /* Header styles */
 .App-header {
   background-color: #282c34;

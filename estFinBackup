@@ -1,0 +1,112 @@
+
+import React from "react";
+import "./App.css";
+
+const EstimatedFinancialData = ({ result }) => {
+  const data = result.firstLinkData;
+
+  const extractTextUntilYear = (text) => {
+    const regexExtended =
+      /(.*?)(?:\sCapitalization|\sNbr of Employees|\sFree-Float|\s2023|\s2024|\s2025|$)/;
+    const match = text.match(regexExtended);
+    let label = match ? match[0].trim() : text;
+    let dataCells = text.replace(label, "").trim();
+
+    dataCells = dataCells.replace(/\s/g, "").replace(/,/g, ".");
+
+    return {
+      label,
+      dataCells,
+    };
+  };
+
+  const extractOthers = (text) => {
+    const regex = /(Capitalization|Nbr of Employees|Free Float)(.*)/;
+    const match = text.match(regex);
+    let label = match ? match[1] : text;
+    let dataCells = match ? match[2].trim() : "";
+
+    if (label.includes("Capitalization")) {
+      label = label.replace("Capitalization", "MktCap");
+    }
+
+    // Remove any random text after the first "B" or "M" in dataCells
+    const unitsRegex = /^.*?([BM])/;
+    const unitsMatch = dataCells.match(unitsRegex);
+    dataCells = unitsMatch ? unitsMatch[0] : dataCells;
+
+    // Remove whitespace and replace commas with periods in dataCells
+    dataCells = dataCells.replace(/\s/g, "").replace(/,/g, ".");
+
+    return {
+      label,
+      dataCells,
+    };
+  };
+
+  const sales1 = extractTextUntilYear(data[0]);
+  const netIncome = extractTextUntilYear(data[1]);
+  const netCashDebt = extractTextUntilYear(data[2]);
+  const peRatio1 = extractTextUntilYear(data[3]);
+  const yield1 = extractTextUntilYear(data[4]);
+  const sales2 = extractTextUntilYear(data[5]);
+  const netIncome2 = extractTextUntilYear(data[6]);
+  const netCashDebt2 = extractTextUntilYear(data[7]);
+  const peRatio2 = extractTextUntilYear(data[8]);
+  const yield2 = extractTextUntilYear(data[9]);
+  const evSales1 = extractTextUntilYear(data[11]);
+  const evSales2 = extractTextUntilYear(data[12]);
+
+  const cap2 = extractOthers(data[10]);
+  const nbrEmp = extractOthers(data[13]);
+  const fFloat = extractOthers(data[14]);
+
+  return (
+    <section className="estimated-financial-data">
+      <h3>Estimated financial data</h3>
+      <table className="finTable">
+        <tbody>
+          <tr>
+            <td className="column1 column-narrow">
+              {data.slice(0, 5).map((item, index) => (
+                <div key={index}>{extractTextUntilYear(item).label}</div>
+              ))}
+            </td>
+            <td className="column2 column-narrow">
+              {data.slice(0, 5).map((item, index) => (
+                <div key={index}>{extractTextUntilYear(item).dataCells}</div>
+              ))}
+            </td>
+            <td className="column3 column-wide">
+              {data.slice(5, 10).map((item, index) => (
+                <div key={index}>{extractTextUntilYear(item).label}</div>
+              ))}
+            </td>
+            <td className="column4 column-wide">
+              {data.slice(5, 10).map((item, index) => (
+                <div key={index}>{extractTextUntilYear(item).dataCells}</div>
+              ))}
+            </td>
+
+            <td className="column5 column-narrow">
+              <div>{cap2.label}</div>
+              <div>{evSales1.label}</div>
+              <div>{evSales2.label}</div>
+              <div>{nbrEmp.label}</div>
+              <div>{fFloat.label}</div>
+            </td>
+            <td className="column6 column-narrow">
+              <div>{cap2.dataCells}</div>
+              <div>{evSales1.dataCells}</div>
+              <div>{evSales2.dataCells}</div>
+              <div>{nbrEmp.dataCells}</div>
+              <div>{fFloat.dataCells}</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  );
+};
+
+export default EstimatedFinancialData;
